@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Treino</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .day-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .exercise-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .exercise-list {
+            margin-top: 10px;
+        }
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: #ff4444;
+        }
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .alert {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .exercise-item.completed {
+            opacity: 0.8;
+        }
+        .peso-input {
+            width: 80px;
+        }
+        .limpar-btn {
+            background-color: #ff9800;
+            margin-bottom: 20px;
+        }
+
+        /* Cores para tipos de treino */
+        .tipo-peito { background-color: #ffcdd2; }
+        .tipo-costas { background-color: #c8e6c9; }
+        .tipo-perna { background-color: #fff9c4; }
+        .tipo-ombro { background-color: #b3e5fc; }
+        .tipo-triceps { background-color: #e1bee7; }
+        .tipo-biceps { background-color: #ffe0b2; }
+        .tipo-abdomen { background-color: #f0f4c3; }
+        .tipo-cardio { background-color: #b2dfdb; }
+        .tipo-outro { background-color: #cfd8dc; }
+    </style>
+</head>
+<body>
+    <button class="limpar-btn" onclick="limparDados()">Limpar Todos os Dados</button>
+    <h1>Meu Cronograma de Treino</h1>
+    <div id="workout-schedule"></div>
+
+    <script>
+        const dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+        const tiposTreino = {
+            'peito': 'Peito',
+            'costas': 'Costas',
+            'perna': 'Perna',
+            'ombro': 'Ombro',
+            'triceps': 'Tríceps',
+            'biceps': 'Bíceps',
+            'abdomen': 'Abdômen',
+            'cardio': 'Cardio',
+            'outro': 'Outro'
+        };
+        let cronograma = {};
+
+        function carregarDados() {
+            const dadosSalvos = localStorage.getItem('cronogramaTreino');
+            if (dadosSalvos) {
+                cronograma = JSON.parse(dadosSalvos);
+            }
+        }
+
+        function salvarDados() {
+            localStorage.setItem('cronogramaTreino', JSON.stringify(cronograma));
+        }
+
+        function limparDados() {
+            if (confirm('Tem certeza que deseja limpar todos os dados?')) {
+                localStorage.removeItem('cronogramaTreino');
+                cronograma = {};
+                inicializarCronograma();
+            }
+        }
+
+        function inicializarCronograma() {
+            const container = document.getElementById('workout-schedule');
+            container.innerHTML = '';
+
+            dias.forEach(dia => {
+                if (!cronograma[dia]) {
+                    cronograma[dia] = [];
+                }
+
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                const tiposOptions = Object.entries(tiposTreino)
+                    .map(([value, label]) => `<option value="${value}">${label}</option>`)
+                    .join('');
+                
+                dayCard.innerHTML = `
+                    <h2>${dia}</h2>
+                    <div class="exercise-input">
+                        <select id="tipo-${dia}" style="min-width: 100px;">
+                            ${tiposOptions}
+                        </select>
+                        <input type="text" id="exercise-${dia}" placeholder="Nome do exercício">
+                        <input type="text" id="sets-${dia}" placeholder="Séries" style="width: 60px;">
+                        <input type="text" id="reps-${dia}" placeholder="Reps" style="width: 60px;">
+                        <input type="text" id="peso-${dia}" placeholder="Peso(kg)" class="peso-input">
+                        <button onclick="adicionarExercicio('${dia}')">Adicionar</button>
+                    </div>
+                    <div class="exercise-list" id="exercises-${dia}"></div>
+                `;
+
+                container.appendChild(dayCard);
+                atualizarListaExercicios(dia);
+            });
+        }
+
+        function adicionarExercicio(dia) {
+            const tipo = document.getElementById(`tipo-${dia}`).value;
+            const exercicio = document.getElementById(`exercise-${dia}`).value;
+            const series = document.getElementById(`sets-${dia}`).value;
+            const repeticoes = document.getElementById(`reps-${dia}`).value;
+            const peso = document.getElementById(`peso-${dia}`).value;
+
+            if (exercicio && series && repeticoes) {
+                cronograma[dia].push({
+                    tipo: tipo,
+                    nome: exercicio,
+                    series: series,
+                    repeticoes: repeticoes,
+                    peso: peso || '0',
+                    completo: false
+                });
+
+                salvarDados();
+                atualizarListaExercicios(dia);
+                
+                document.getElementById(`exercise-${dia}`).value = '';
+                document.getElementById(`sets-${dia}`).value = '';
+                document.getElementById(`reps-${dia}`).value = '';
+                document.getElementById(`peso-${dia}`).value = '';
+            }
+        }
+
+        function removerExercicio(dia, index) {
+            cronograma[dia].splice(index, 1);
+            salvarDados();
+            atualizarListaExercicios(dia);
+        }
+
+        function toggleCompleto(dia, index) {
+            cronograma[dia][index].completo = !cronograma[dia][index].completo;
+            salvarDados();
+            atualizarListaExercicios(dia);
+        }
+
+        function atualizarListaExercicios(dia) {
+            const container = document.getElementById(`exercises-${dia}`);
+            container.innerHTML = '';
+
+            cronograma[dia].forEach((exercicio, index) => {
+                const exercicioElement = document.createElement('div');
+                exercicioElement.className = `exercise-item tipo-${exercicio.tipo} ${exercicio.completo ? 'completed' : ''}`;
+                
+                const pesoInfo = exercicio.peso ? ` - ${exercicio.peso}kg` : '';
+                
+                exercicioElement.innerHTML = `
+                    <span>
+                        <input type="checkbox" 
+                               ${exercicio.completo ? 'checked' : ''} 
+                               onclick="toggleCompleto('${dia}', ${index})">
+                        [${tiposTreino[exercicio.tipo]}] ${exercicio.nome} - ${exercicio.series}x${exercicio.repeticoes}${pesoInfo}
+                    </span>
+                    <button class="delete-btn" onclick="removerExercicio('${dia}', ${index})">Remover</button>
+                `;
+                container.appendChild(exercicioElement);
+            });
+        }
+
+        carregarDados();
+        inicializarCronograma();
+    </script>
+</body>
+</html>
