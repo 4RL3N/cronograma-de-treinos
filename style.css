@@ -1,49 +1,125 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
+    max-width: 95%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 1.5%;
     background-color: #f5f5f5;
+}
+.cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linhas */
+    gap: 20px;       /* Espaço entre os cards */
+    justify-content: center; /* Centraliza os cards */
 }
 .day-card {
     background-color: white;
+    flex: 1 1 calc(33.33% - 20px);
+    box-sizing: border-box;
+    max-width: calc(33.33% - 20px);
     border-radius: 25px;
     padding: 15px;
     margin-bottom: 15px;
+    height: 400px;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .exercise-input {
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+    gap: 10px; /* Espaço entre os campos */
+    justify-content: center; /* Centraliza os campos no card */
+    align-items: center; /* Centraliza verticalmente */
+    width: 95%;
+    padding: 8px;
+}
+.exercise-input input,
+.exercise-input select {
+    flex: 1 1 22%; /* Define largura responsiva dos campos */
+    min-width: 120px; /* Tamanho mínimo para manter legibilidade */
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    box-sizing: border-box; /* Garante espaçamento correto */
+    overflow-wrap: break-word;  /*Permite quebra de palavras longas */
+    word-wrap: break-word;  /*Compatibilidade com navegadores mais antigos */
+    white-space: normal;
+}
+.exercise-input button {
+    background-color: #439b46;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 30%; /* Ajusta a largura do botão */
+    align-self: center; /* Garante que o botão fique no centro */
+}
+
+.exercise-input button:hover {
+    background-color: #5bcf61;
 }
 .exercise-list {
     margin-top: 10px;
+    max-height: 180px;
+    max-width: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
 }
 .exercise-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 3px solid #eee;
 }
 button {
-    background-color: #4CAF50;
+    background-color: #439b46;
     color: white;
     border: none;
     padding: 8px 15px;
     border-radius: 25px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Adiciona transição */
+
 }
 button:hover {
-    background-color: #45a049;
+    background-color: #5bcf61;
 }
 .delete-btn {
-    background-color: #ff4444;
-    border-radius: 250px;
+    background-color: #cc0000;
+    border-radius: 25px;
 }
 .delete-btn:hover {
-    background-color: #cc0000;
+    background-color: #4eb453;
+}
+.balao_1 {
+    font-family: Arial, sans-serif;
+    display: flex;
+    gap: 10%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.imagem-arredondada {
+    width: 10%;
+    max-width: 100%;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: block;
 }
 input, select {
     padding: 8px;
@@ -59,13 +135,14 @@ input, select {
     margin-bottom: 20px;
 }
 .exercise-item.completed {
+    text-decoration: line-through;
     opacity: 0.8;
 }
 .peso-input {
-    width: 80px;
+    width: 15%;
 }
 .limpar-btn {
-    background-color: #ff9800;
+    background-color: #cc0000;
     margin-bottom: 20px;
 }
 
@@ -73,9 +150,25 @@ input, select {
 .tipo-peito { background-color: #ffcdd2; }
 .tipo-costas { background-color: #c8e6c9; }
 .tipo-perna { background-color: #fff9c4; }
-.tipo-ombro { background-color: #b3e5fc; }
 .tipo-triceps { background-color: #e1bee7; }
 .tipo-biceps { background-color: #ffe0b2; }
 .tipo-abdomen { background-color: #f0f4c3; }
-.tipo-cardio { background-color: #b2dfdb; }
+.tipo-ombro { background-color: #b3e5fc; }
 .tipo-outro { background-color: #cfd8dc; }
+
+
+/* Estilo da barra de rolagem */
+.exercise-list::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+    height: 8px;
+}
+.exercise-list::-webkit-scrollbar-track {
+    background: transparent; /* Fundo da faixa da barra de rolagem */
+}
+.exercise-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5); /* Cor do "polegar" da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas para o polegar */
+}
+.exercise-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.7); /* Cor do polegar ao passar o mouse */
+}
