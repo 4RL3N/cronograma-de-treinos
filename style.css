@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+.day-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.exercise-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.exercise-list {
+    margin-top: 10px;
+}
+.exercise-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+.delete-btn {
+    background-color: #ff4444;
+    border-radius: 250px;
+}
+.delete-btn:hover {
+    background-color: #cc0000;
+}
+input, select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.alert {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.exercise-item.completed {
+    opacity: 0.8;
+}
+.peso-input {
+    width: 80px;
+}
+.limpar-btn {
+    background-color: #ff9800;
+    margin-bottom: 20px;
+}
+
+/* Cores para tipos de treino */
+.tipo-peito { background-color: #ffcdd2; }
+.tipo-costas { background-color: #c8e6c9; }
+.tipo-perna { background-color: #fff9c4; }
+.tipo-ombro { background-color: #b3e5fc; }
+.tipo-triceps { background-color: #e1bee7; }
+.tipo-biceps { background-color: #ffe0b2; }
+.tipo-abdomen { background-color: #f0f4c3; }
+.tipo-cardio { background-color: #b2dfdb; }
+.tipo-outro { background-color: #cfd8dc; }
