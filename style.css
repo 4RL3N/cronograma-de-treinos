@@ -11,6 +11,38 @@ body {
     gap: 20px;       /* Espaço entre os cards */
     justify-content: center; /* Centraliza os cards */
 }
+
+/*responsividade*/
+
+/* Estilos padrão para telas grandes */
+.day-card {
+    flex: 1 1 calc(33.33% - 20px); /* 3 cards por linha */
+}
+
+/* Para tablets (largura máxima de 768px) */
+@media (max-width: 768px) {
+    .day-card {
+        flex: 1 1 calc(50% - 20px); /* 2 cards por linha */
+    }
+}
+
+/* Para celulares (largura máxima de 480px) */
+@media (max-width: 480px) {
+    .day-card {
+        flex: 1 1 100%; /* 1 card por linha */
+    }
+
+    .exercise-input input,
+    .exercise-input select {
+        flex: 1 1 100%; /* Campos ocupam toda a largura */
+        min-width: auto; /* Remove o tamanho mínimo */
+    }
+
+    .exercise-input button {
+        width: 100%; /* Botões ocupam toda a largura */
+        margin-top: 10px; /* Espaço entre os campos e o botão */
+    }
+}
 .day-card {
     background-color: white;
     flex: 1 1 calc(33.33% - 20px);
