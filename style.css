@@ -7,7 +7,7 @@ body {
 }
 .day-card {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 25px;
     padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -47,8 +47,8 @@ button:hover {
 }
 input, select {
     padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
 }
 .alert {
     background-color: #fff3cd;

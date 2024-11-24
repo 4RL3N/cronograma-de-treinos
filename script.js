@@ -1,13 +1,8 @@
 const dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
         const tiposTreino = {
-            'peito': 'Peito',
-            'costas': 'Costas',
-            'perna': 'Perna',
-            'ombro': 'Ombro',
-            'triceps': 'Tríceps',
-            'biceps': 'Bíceps',
-            'abdomen': 'Abdômen',
-            'cardio': 'Cardio',
+            'peito e triceps': 'Peito e Tríceps',
+            'pernas': 'Pernas',
+            'biceps e costas': 'Bíceps e Costas',
             'outro': 'Outro'
         };
         let cronograma = {};
@@ -50,14 +45,14 @@ const dias = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
                 dayCard.innerHTML = `
                     <h2>${dia}</h2>
                     <div class="exercise-input">
-                        <select id="tipo-${dia}" style="min-width: 100px;">
+                        <select id="tipo-${dia}" style="min-width: 23%;">
                             ${tiposOptions}
                         </select>
-                        <input type="text" id="exercise-${dia}" placeholder="Nome do exercício">
-                        <input type="text" id="sets-${dia}" placeholder="Séries" style="width: 60px;">
-                        <input type="text" id="reps-${dia}" placeholder="Reps" style="width: 60px;">
-                        <input type="text" id="peso-${dia}" placeholder="Peso(kg)" class="peso-input">
-                        <button onclick="adicionarExercicio('${dia}')">Adicionar</button>
+                        <input type="text" id="exercise-${dia}" placeholder="Nome do exercício" style="min-width: 30%;">
+                        <input type="text" id="sets-${dia}" placeholder="Séries" style="min-width: 7%;">
+                        <input type="text" id="reps-${dia}" placeholder="Reps" style="min-width: 6%;">
+                        <input type="text" id="peso-${dia}" placeholder="Peso(kg)" class="peso-input" style="min-width: 9%;">
+                        <button onclick="adicionarExercicio('${dia}')" style="min-width: 15%;">Adicionar</button>
                     </div>
                     <div class="exercise-list" id="exercises-${dia}"></div>
                 `;
