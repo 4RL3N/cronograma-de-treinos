@@ -19,18 +19,34 @@ body {
     border-radius: 25px;
     padding: 15px;
     margin-bottom: 15px;
-    height: 350px;
+    height: 400px;
     justify-content: space-between;
     flex-direction: column;
+    align-items: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.exercise-input, .exercise-input select {
-    width: 100%; /* Faz com que os campos ocupem toda a largura disponível */
-    padding: 10px;
-    border: 5px solid #ddd;
-    border-radius: 25px;
-}
 
+.exercise-input {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+    gap: 10px; /* Espaço entre os campos */
+    justify-content: center; /* Centraliza os campos no card */
+    align-items: center; /* Centraliza verticalmente */
+    width: 95%;
+    padding: 8px;
+}
+.exercise-input input,
+.exercise-input select {
+    flex: 1 1 22%; /* Define largura responsiva dos campos */
+    min-width: 120px; /* Tamanho mínimo para manter legibilidade */
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    box-sizing: border-box; /* Garante espaçamento correto */
+    overflow-wrap: break-word;  /*Permite quebra de palavras longas */
+    word-wrap: break-word;  /*Compatibilidade com navegadores mais antigos */
+    white-space: normal;
+}
 .exercise-input button {
     background-color: #439b46;
     color: white;
@@ -39,7 +55,8 @@ body {
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    width: 30%; /* Ajusta a largura do botão */
+    align-self: center; /* Garante que o botão fique no centro */
 }
 
 .exercise-input button:hover {
@@ -47,13 +64,20 @@ body {
 }
 .exercise-list {
     margin-top: 10px;
+    max-height: 180px;
+    max-width: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
 }
 .exercise-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 3px solid #eee;
 }
 button {
     background-color: #439b46;
@@ -115,7 +139,7 @@ input, select {
     opacity: 0.8;
 }
 .peso-input {
-    width: 80px;
+    width: 15%;
 }
 .limpar-btn {
     background-color: #cc0000;
@@ -131,3 +155,20 @@ input, select {
 .tipo-abdomen { background-color: #f0f4c3; }
 .tipo-ombro { background-color: #b3e5fc; }
 .tipo-outro { background-color: #cfd8dc; }
+
+
+/* Estilo da barra de rolagem */
+.exercise-list::-webkit-scrollbar {
+    width: 8px; /* Largura da barra de rolagem */
+    height: 8px;
+}
+.exercise-list::-webkit-scrollbar-track {
+    background: transparent; /* Fundo da faixa da barra de rolagem */
+}
+.exercise-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5); /* Cor do "polegar" da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas para o polegar */
+}
+.exercise-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.7); /* Cor do polegar ao passar o mouse */
+}

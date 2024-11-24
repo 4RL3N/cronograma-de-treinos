@@ -48,19 +48,20 @@ function inicializarCronograma() {
 
         // Criação do conteúdo do card
         dayCard.innerHTML = `
-            <h2>${dia}</h2>
-            <div class="exercise-input">
-                <select id="tipo-${dia}" style="min-width: 23%;">
-                    ${tiposOptions}
-                </select>
-                <input type="text" id="exercise-${dia}" placeholder="Nome do exercício" style="min-width: 30%;">
-                <input type="text" id="sets-${dia}" placeholder="Séries" style="min-width: 7%;">
-                <input type="text" id="reps-${dia}" placeholder="Reps" style="min-width: 6%;">
-                <input type="text" id="peso-${dia}" placeholder="Peso(kg)" class="peso-input" style="min-width: 9%;">
-                <button onclick="adicionarExercicio('${dia}')" style="min-width: 15%;">Adicionar</button>
-            </div>
-            <div class="exercise-list" id="exercises-${dia}"></div>
-        `;
+    <h2>${dia}</h2>
+    <div class="exercise-input">
+        <select id="tipo-${dia}" style="min-width: 23%;">
+            ${tiposOptions}
+        </select>
+        <input type="text" id="exercise-${dia}" placeholder="Nome do exercício" style="min-width: 70%; max-width: 600px;">
+        <input type="number" id="sets-${dia}" placeholder="Séries" min="0"style="min-width: 10%; max-width: 80px;">
+        <input type="number" id="reps-${dia}" placeholder="Reps" min="0"style="min-width: 5%; max-width: 70px;">
+        <input type="number" id="peso-${dia}" placeholder="Peso(kg)" class="peso-input" min="0" step="0.1" style="min-width: 7%; max-width: 100px;">
+        <button onclick="adicionarExercicio('${dia}')" style="min-width: 15%;">Adicionar</button>
+    </div>
+    <div class="exercise-list" id="exercises-${dia}"></div>
+`;
+
 
         container.appendChild(dayCard);
         atualizarListaExercicios(dia);
